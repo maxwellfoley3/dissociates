@@ -55,3 +55,19 @@ ul {
 	font-size: 12px;
 	padding-bottom: 150px;
 }
+
+@media (max-width: 600px) {
+	body {
+		font-size: 14px;
+	}
+
+	h1 {
+		font-size: 48px;
+	}
+
+	#container {
+		padding-left: 5%;
+		padding-right: 5%;
+		width:100%;
+	}
+}

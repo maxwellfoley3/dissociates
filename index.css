@@ -8,6 +8,14 @@ html, body {
 	background-color: #17111d;
 }
 
+a {
+	color: #b365a1;
+}
+
+a:hover {
+	color: #e9dcf5;
+}
+
 h1 {
 	font-size: 72px;
 	font-weight:800;
@@ -16,6 +24,10 @@ h1 {
 
 #header {
 	margin-bottom: 70px;
+}
+
+ul {
+	list-style: url('asterisk.svg');
 }
 
 .twitter-icon {
@@ -28,7 +40,8 @@ h1 {
 }
 
 #container {
-	padding: 70px;
+	padding-top: 20px;
+	padding-left: 70px;
 	max-width: 600px;
 }
 
@@ -40,4 +53,5 @@ h1 {
 #footer {
 	margin-top: 50px;
 	font-size: 12px;
+	padding-bottom: 150px;
 }

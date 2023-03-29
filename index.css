@@ -1,0 +1,43 @@
+html, body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	font-family: 'Nanum Myeongjo', sans-serif;
+	font-size: 16px;
+	color: #e9dcf5;
+	background-color: #17111d;
+}
+
+h1 {
+	font-size: 72px;
+	font-weight:800;
+	margin-bottom: 10px;
+}
+
+#header {
+	margin-bottom: 70px;
+}
+
+.twitter-icon {
+	width: 20px;
+	height: 20px;
+}
+
+.twitter-icon:hover {
+	opacity: 0.5;
+}
+
+#container {
+	padding: 70px;
+	max-width: 600px;
+}
+
+#content {
+	line-height: 1.6;
+	text-indent: 1em;
+}
+
+#footer {
+	margin-top: 50px;
+	font-size: 12px;
+}

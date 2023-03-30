@@ -17,6 +17,119 @@
 			} else {
 				partOfDay.innerHTML = "evening";
 			}
+
+			targetSizesOld = [];
+			targetSizesNew = [];
+			var outerInterval = 3000;
+			var innerInterval = 100;
+			var innerIntervalCounter = 1;
+			var textScaleFactor = 14;
+			var tssOld = [
+				{
+					x: 0,
+					y: 0,
+					s: 10,
+					t: .3
+				},
+				{
+					x: 15,
+					y: 15,
+					s: 5,
+					t: .2
+				},
+				{
+					x: -5,
+					y: -5,
+					s: 5,
+					t: .1
+				}
+			];
+			var tssNew = [];
+			// convert the above to an array of three objects
+			var tss = tssOld;
+			var textShadowStyleString = `${tss[0].x}px ${tss[0].y}px ${tss[0].s}px #ff3d8e${floatToHexadecimal(tss[0].t)}, ${tss[1].x}px ${tss[1].y}px ${tss[1].s}px #00d0ff${floatToHexadecimal(tss[1].t)}, ${tss[2].x}px ${tss[2].y}px ${tss[2].s}px #ff3d8e${floatToHexadecimal(tss[2].t)}`;
+			
+			// convert 0.0 to 1.0 range to 00 to ff range
+			function floatToHexadecimal(float) {
+				var hex = Math.floor(float * 255).toString(16);
+				if (hex.length == 1) {
+					hex = "0" + hex;
+				}
+				return hex;
+			}
+
+			function strangeTextSizeInner() {
+				// make every letter in the Dissociates h1 a slightly different size
+				var dissociates = document.getElementById("dissociates");
+				var dissociatesText = dissociates.textContent;
+				var dissociatesTextArray = dissociatesText.split("");
+				var dissociatesTextArrayLength = dissociatesTextArray.length;
+				var dissociatesTextArrayNew = [];
+				for (var i = 0; i < dissociatesTextArrayLength; i++) {
+					var targetSize = targetSizesOld[i] + (targetSizesNew[i] - targetSizesOld[i]) * (innerIntervalCounter / (outerInterval / innerInterval));
+					dissociatesTextArrayNew.push("<span style='font-size: " + targetSize + "%'>" + dissociatesTextArray[i] + "</span>");
+				}
+				dissociates.innerHTML = dissociatesTextArrayNew.join("");
+				innerIntervalCounter++;
+				// modulate between tssOld and tssNew
+				tssCurrent = [];
+				console.log('tssCurrent', tssCurrent, 'tssOld', tssOld, 'tssNew', tssNew)
+				for (var i = 0; i < tssNew.length; i++) {
+					tssCurrent[i] = {
+						x: tssOld[i].x + (tssNew[i].x - tssOld[i].x) * (innerIntervalCounter / (outerInterval / innerInterval)),
+						y: tssOld[i].y + (tssNew[i].y - tssOld[i].y) * (innerIntervalCounter / (outerInterval / innerInterval)),
+						s: tssOld[i].s + (tssNew[i].s - tssOld[i].s) * (innerIntervalCounter / (outerInterval / innerInterval)),
+						t: tssOld[i].t + (tssNew[i].t - tssOld[i].t) * (innerIntervalCounter / (outerInterval / innerInterval))
+					};
+				}
+				textShadowStyleString = `${tssCurrent[0].x}px ${tssCurrent[0].y}px ${tssCurrent[0].s}px #ff3d8e${floatToHexadecimal(tssCurrent[0].t)}, ${tssCurrent[1].x}px ${tssCurrent[1].y}px ${tssCurrent[1].s}px #00d0ff${floatToHexadecimal(tssCurrent[1].t)}, ${tssCurrent[2].x}px ${tssCurrent[2].y}px ${tssCurrent[2].s}px #ff3d8e${floatToHexadecimal(tssCurrent[2].t)}`;
+				dissociates.style.textShadow = textShadowStyleString;
+			}
+
+			function strangeTextSize() {
+				// make every letter in the Dissociates h1 a slightly different size
+				var dissociates = document.getElementById("dissociates");
+				var dissociatesText = dissociates.textContent;
+				var dissociatesTextArray = dissociatesText.split("");
+				var dissociatesTextArrayLength = dissociatesTextArray.length;
+				innerIntervalCounter = 0;
+				// either initialize the target sizes or copy the new ones to the old ones
+				if (targetSizesOld.length == 0) {
+					for (var i = 0; i < dissociatesTextArrayLength; i++) {
+						targetSizesOld[i] = Math.floor(Math.random() * textScaleFactor) + 90;
+					}
+				} else {
+					for (var i = 0; i < dissociatesTextArrayLength; i++) {
+						targetSizesOld[i] = targetSizesNew[i];
+					}
+				}
+				for (var i = 0; i < dissociatesTextArrayLength; i++) {
+					targetSizesNew[i] = Math.floor(Math.random() * textScaleFactor) + 90;
+				}
+
+				// make the text shadow a little bit different
+				for (var i = 0; i < tssOld.length; i++) {
+					if(tssNew[i]) {
+						tssOld[i] = {
+							x: tssNew[i].x,
+							y: tssNew[i].y,
+							s: tssNew[i].s,
+							t: tssNew[i].t
+						}
+					}
+					tssNew[i] = {
+						x: Math.floor(Math.random() * 20) - 10,
+						y: Math.floor(Math.random() * 20) - 10,
+						s: Math.floor(Math.random() * 10) + 9,
+						t: Math.random() * .6
+					};
+				}
+			}
+
+			strangeTextSize();
+			setInterval(strangeTextSize, outerInterval);
+			setInterval(strangeTextSizeInner, innerInterval);
+
 		}
 	</script>
 	<link rel="icon" href="favicon.ico?" />
@@ -29,7 +142,7 @@
 	<body>
 		<div id="container">
 			<div id="header">
-				<h1>Dissociates 💼 </h1>
+				<h1><span id="dissociates">Dissociates</span> 💼 </h1>
 				<a href="https://twitter.com/dissociates__"><img class="twitter-icon" src="twitter.svg"></a>
 				<a href="mailto://dissociatestech@gmail.com"><img class="twitter-icon" src="mail.svg"></a>
 			</div>

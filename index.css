@@ -8,6 +8,10 @@ html, body {
 	background-color: #17111d;
 }
 
+#dissociates {
+	text-shadow: 0px 0px 10px #ff3d8e33, 15px 15px 5px #00d0ff22, -5px -5px 5px #ff3d8e11;
+}
+
 a {
 	color: #b365a1;
 }
@@ -69,5 +73,6 @@ ul {
 		padding-left: 5%;
 		padding-right: 5%;
 		width:100%;
+		box-sizing: border-box;
 	}
 }

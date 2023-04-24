@@ -73,7 +73,6 @@
 				innerIntervalCounter++;
 				// modulate between tssOld and tssNew
 				tssCurrent = [];
-				console.log('tssCurrent', tssCurrent, 'tssOld', tssOld, 'tssNew', tssNew)
 				for (var i = 0; i < tssNew.length; i++) {
 					tssCurrent[i] = {
 						x: tssOld[i].x + (tssNew[i].x - tssOld[i].x) * (innerIntervalCounter / (outerInterval / innerInterval)),
